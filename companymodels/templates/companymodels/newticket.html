@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Ticket</title>
+</head>
+<body>
+    <form action="" method="post">
+        Ticket Title : <input type="text" name="title" required>
+        Ticket Body : <input type="text" name="body" required>
+        <input type="submit" value="submit">
+    </form>
+    {% if messages  %}
+        {% for m in messages %}
+            {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <p class="error"> {{ m }} </p>
+            {% elif m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <p class="success"> {{ m }} </p>
+            {% else %}
+                <p> {{ m }} </p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

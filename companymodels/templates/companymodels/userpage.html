@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    <link rel="stylesheet" type="text/css" href="{% static 'simpleview/style.css' %}">#}
+    <title>{{ request.user.username }}</title>
+</head>
+<body>
+    <h2>welcom {{ request.user.username }}</h2>
+    {% if messages  %}
+        {% for m in messages %}
+            {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <p class="error"> {{ m }} </p>
+            {% elif m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <p class="success"> {{ m }} </p>
+            {% elif m.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                <p class="warning"> {{ m }} </p>
+            {% else %}
+                <p> {{ m }} </p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if not request.user.is_superuser %}
+        <h3>Orders Reviews</h3>
+            {% if orders %}
+                {% for order in orders %}
+                    <h4>Invoice:{{ order.factor }}</h4>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="text" value="{{ order.id }}" name="orderID" hidden><input type="submit" value="delete">
+                    </form>
+                {% endfor %}
+            {% else %}
+                <h4>No order yet</h4>
+            {% endif %}
+            <br>
+            <h3>Tickets Reviews</h3>
+                {% if tickets %}
+                    {% for ticket in tickets %}
+                        <a href="{% url 'company:ticketreview' %}">{{ ticket }}</a>
+                    {% endfor %}
+                {% endif %}
+    {% else %}
+        <h3>Services Reviews</h3>
+            {% if services %}
+                {% for service in services %}
+                    <h4>{{ service }}</h4>
+                {% endfor %}
+            {% else %}
+                <h4>No service yet</h4>
+            {% endif %}
+        <br>
+        <h3>Tickets Review</h3>
+            {% for ticket in allTickets %}
+                <a href="{% url 'company:ticketreview' %}"></a>
+            {% endfor %}
+    {% endif %}
+    <br>
+    {% if not request.user.is_superuser %}
+        <a href={% url 'company:neworder' %}>Add New Order</a>
+        <a href="{% url 'company:newticket' %}">Add new ticket</a>
+   {% endif %}
+    <br>
+    {% if request.user.is_superuser %}
+        <a href="{% url 'company:newservice' %}">New Service</a>
+    {% endif %}
+    <br>
+    <a href={% url 'company:logout' %}>Log Out</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Review</title>
+</head>
+<body>
+    {% for ticket in tickets %}
+        <p>{{ ticket }}</p><br>
+        {% for message in tickets.messages.all %}
+            <p style="text-indent: 40px">{{ message }}</p><br>
+        {% endfor %}
+    {% endfor %}
+    <form action="" method="post"></form>
+</body>
+</html>

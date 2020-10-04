@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Order</title>
+</head>
+<body>
+    <form action="" method="post">
+    {% csrf_token %}
+        <label>Choose your desierd services : </label>
+        {% for service in services %}
+            <input type="checkbox" id='{{ service.serviceName }}', name="{{ service.serviceName }}">
+            <label for="{{ service.serviceName }}">{{ service }}</label>
+        {% endfor %}
+        <input type="submit" value="submit">
+    </form>
+
+
+</body>
+</html>

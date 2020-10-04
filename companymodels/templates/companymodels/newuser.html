@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    <link rel="stylesheet" type="text/css" href="{% static 'simpleview/style.css' %}">#}
+    <title>Sign Up</title>
+</head>
+<body>
+    <form method="post" action=''>
+        {% csrf_token %}
+        Username : <input type="text" name="username", required>
+        Password : <input type="password" name="password", requirede>
+        Email : <input type="email" name="email", required>
+        Phone number : <input type="text" name="phone", required>
+        <input type="submit" value="submit">
+    </form>
+    {% if messages  %}
+        {% for m in messages %}
+            {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <p class="error"> {{ m }} </p>
+            {% elif m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <p class="success"> {{ m }} </p>
+            {% else %}
+                <p> {{ m }} </p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
